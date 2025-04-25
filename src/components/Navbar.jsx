@@ -16,7 +16,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-xl font-bold text-gray-800">
-              MyBrand
+              Tech inventory
             </Link>
           </div>
 
@@ -24,7 +24,6 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
             <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
-            <Link href="/services" className="text-gray-600 hover:text-gray-900">Services</Link>
             <Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link>
           </div>
 
