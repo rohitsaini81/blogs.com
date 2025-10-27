@@ -1,11 +1,18 @@
 import { blogPosts } from '@/lib/blogData';
+import { fetchBlogPost, fetchBlogPostContent } from '@/lib/pg';
 import { notFound } from 'next/navigation';
 
 export default async function BlogPost({ params }) {
-  console.log('Route params:', params);
 
-  const post = blogPosts.find((p) => p.slug === params.slug);
 
+    const { slug } = await params;
+  console.log('Route params:', slug);
+
+  // const post = blogPosts.find((p) => p.slug === params.slug);
+  const post = await fetchBlogPost(slug)
+  const contentObject = await fetchBlogPostContent(post.id)
+  console.log(typeof(contentObject.content))
+  // console.log(post)
   if (!post) return notFound();
 
   return (
@@ -27,10 +34,19 @@ export default async function BlogPost({ params }) {
       )}
 
       <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-        {post.content}
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem fuga, repellat quasi aut dignissimos ullam culpa tempora quaerat ut odit animi reprehenderit, totam facilis eveniet ipsa est sequi nihil a.
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, pariatur! Iusto quaerat reprehenderit ipsam molestias, adipisci maiores fuga veniam vel temporibus perspiciatis, accusantium minima magnam! Veniam iure adipisci praesentium harum?
-      </p>
+        {post.short_description}</p>
+        <img src={post.thumbnail_url} alt="PHOTO" />
+        <div className='w-full h-full'>
+          {/* {contentObject.content} */}
+
+
+
+
+              <div
+      className="bootstrap-scope"
+      dangerouslySetInnerHTML={{ __html: contentObject.content }}
+    />
+        </div>
     </div>
   );
 }

@@ -1,24 +1,26 @@
-import { blogPosts } from '@/lib/blogData';
+// import { blogPosts } from '@/lib/blogData';
+import { fetchBlogs } from '@/lib/pg';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic'; // SSR
 
 export default async function BlogPage() {
-  const posts = blogPosts;
+  const blogs = await fetchBlogs();
+  console.log(blogs)
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold mb-8">Latest Posts</h1>
+      <h1 className="text-4xl font-bold mb-8">Latest blogs</h1>
       <div className="space-y-6">
-        {posts.map((post) => (
+        {blogs.map((post) => (
           <Link
             key={post.id}
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.title}`}
             className="flex gap-4 hover:bg-gray-50 p-4 rounded-xl transition"
           >
-            {post.image ? (
+            {post.thumbnail_url ? (
               <img
-                src={post.image}
+                src={post.thumbnail_url}
                 alt={post.title}
                 className="w-28 h-28 rounded-xl object-cover flex-shrink-0"
               />
