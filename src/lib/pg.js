@@ -14,18 +14,16 @@ if (!connectionString) {
 
 
 
-// postgres://user:password@localhost:5432/mydatabase
-// process.env.DATABASE_URL ||
 // const connectionString = process.env.DATABASE_URL
 //  'postgres://rohitsaini:mypassword@localhost:5432/mydatabase';
 
-console.log(connectionString)
 const pool = new Pool({
   connectionString,
 });
 
+console.log(connectionString)
 
-// export default pool;
+export default pool;
 
 
 
