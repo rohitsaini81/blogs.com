@@ -5,16 +5,24 @@ const { Pool } = pkg;
 
 import dotenv from 'dotenv';
 dotenv.config();
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error("DATABASE_URL is not defined in environment variables");
+}
+
+
 
 
 // postgres://user:password@localhost:5432/mydatabase
 // process.env.DATABASE_URL ||
-const connectionString = process.env.DATABASE_URL
+// const connectionString = process.env.DATABASE_URL
 //  'postgres://rohitsaini:mypassword@localhost:5432/mydatabase';
+
 console.log(connectionString)
 const pool = new Pool({
   connectionString,
-});
+}).then(()=>console.log("DATABASE connected !*"));
 
 
 // export default pool;
