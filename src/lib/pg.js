@@ -18,7 +18,7 @@ if (!connectionString) {
 //  'postgres://rohitsaini:mypassword@localhost:5432/mydatabase';
 
 const pool = new Pool({
-  connectionString,
+  connectionString:connectionString,
 });
 
 console.log(connectionString)
@@ -30,6 +30,7 @@ export default pool;
 
 export async function fetchBlogs() {
   try {
+    console.log("heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
     const result = await pool.query('SELECT * FROM blogs');
     return result.rows; 
   } catch (err) {

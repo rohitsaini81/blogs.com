@@ -1,11 +1,11 @@
 // import { fetchBlogs } from '@/lib/pg';
-import { fetchBlogPost } from '@/lib/pg';
+import { fetchBlogs } from '@/lib/pg.js';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic'; // SSR
 
 export default async function BlogPage() {
-  const blogs = await fetchBlogPost();
+  const blogs = await fetchBlogs();
   console.log("blogs frontend ;",blogs)
 
   return (
