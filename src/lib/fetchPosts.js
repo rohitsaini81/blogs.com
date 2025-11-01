@@ -19,7 +19,7 @@ let isConnected = false;
 export async function fetchBlogs() {
   try {
     
-    const { data, error } = await supabase.from("videos").select("*");
+    const { data, error } = await supabase.from("blogs").select("*");
     console.log("Fetched users:", data);
     return data;
   } catch (error) {
@@ -32,12 +32,12 @@ export async function fetchBlogs() {
 export async function fetchBlogPost(query) {
   try {
 
-     const { data: videos, error } = await supabase
-  .from("videos")
+     const { data: blogs, error } = await supabase
+  .from("blogs")
   .select("*")
   .or(`title.ilike.%${query}%,description.ilike.%${query}%`);
 
-    return videos;
+    return blogs;
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];
@@ -58,7 +58,7 @@ export async function fetchBlogPost(query) {
 export async function fetchVideoByQuery(query) {
 
   // Search title or description (case-insensitive)
-  const video = await supabase.from("videos").select("*").eq("title", query);
+  const video = await supabase.from("blogs").select("*").eq("title", query);
   return video; // returns a single document or null
 }
 
