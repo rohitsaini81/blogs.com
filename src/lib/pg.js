@@ -55,6 +55,12 @@ export async function fetchBlogPost(slug) {
   }
 }
 
+
+
+
+
+
+
 export async function fetchBlogPostContent(blog_id) {
   try {
     // console.log(blog_id)

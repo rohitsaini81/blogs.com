@@ -29,20 +29,20 @@ export async function fetchBlogs() {
 };
 
 
-export async function fetchBlogPost(query) {
-  try {
+// export async function fetchBlogPost(query) {
+//   try {
 
-     const { data: blogs, error } = await supabase
-  .from("blogs")
-  .select("*")
-  .or(`title.ilike.%${query}%,description.ilike.%${query}%`);
+//      const { data: blogs, error } = await supabase
+//   .from("blogs")
+//   .select("*")
+//   .or(`title.ilike.%${query}%,description.ilike.%${query}%`);
 
-    return blogs;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
-};
+//     return blogs;
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     return [];
+//   }
+// };
 
 
 
@@ -63,6 +63,43 @@ export async function fetchVideoByQuery(query) {
 }
 
 
+export async function fetchBlogPost(slug) {
+  try {
+    const decodedSlug = decodeURIComponent(slug)
+
+    const { data, error } = await supabase
+      .from('blogs')
+      .select('*')
+      .eq('title', decodedSlug)
+      .single() // returns the first matching row as an object
+
+    if (error) throw error
+
+    return data
+  } catch (err) {
+    console.error('Error fetching blog:', err)
+    throw err
+  }
+}
+
+
+
+export async function fetchBlogPostContent(blog_id) {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('blog_id', blog_id)
+      .single() // because we expect only one row
+
+    if (error) throw error
+
+    return data
+  } catch (err) {
+    console.error('Error fetching blogs:', err)
+    throw err
+  }
+}
 
 // export async function GET() {
 //   // const ok = await fetchd();
