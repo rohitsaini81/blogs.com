@@ -1,4 +1,7 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
 
 const categories = [
   { name: 'Windows', icon: 'windows' },
@@ -8,7 +11,7 @@ const categories = [
   { name: 'PC Games', icon: 'gamepad' },
   { name: 'Ebooks', icon: 'book' },
   { name: 'Video Courses', icon: 'video-camera' },
-  { name: 'blogs', icon : 'blog-icon'}
+  { name: 'blogs', icon: 'blog-icon' },
 ];
 
 const Icon = ({ name }) => {
@@ -30,28 +33,29 @@ const Icon = ({ name }) => {
   }
 };
 
-export default function Hero({ selectedCategory, setSelectedCategory }) {
+export default function Hero() {
+  const [selectedCategory, setSelectedCategory] = useState('Windows');
+
   return (
     <div className="bg-white p-4 border-b border-gray-200">
-      <div className="flex space-x-1 overflow-x-auto">
-        {categories.map((cat, idx) => (
-<a href={`/${cat.name}`} key={idx}>
+      <div className="flex space-x-2 overflow-x-auto">
+        {categories.map((cat) => (
+          <Link key={cat.name} href={`/${cat.name}`} passHref>
             <button
-            // key={idx}
-            onClick={() => setSelectedCategory(cat.name)}
-            className={`flex items-center space-x-2 px-4 py-3 whitespace-nowrap border ${
-              selectedCategory === cat.name
-                ? 'bg-white shadow-inner font-semibold'
-                : 'bg-gray-50 hover:bg-gray-100'
-            } rounded-md border-gray-300`}
-          >
-            <Icon name={cat.icon} />
-            <span>{cat.name}</span>
-            {(cat.name === 'Ebooks' || cat.name === 'Video Courses') && (
-              <span className="ml-1 text-yellow-500 text-xs font-bold">👑</span>
-            )}
-          </button>
-</a>
+              onClick={() => setSelectedCategory(cat.name)}
+              className={`flex items-center space-x-2 px-4 py-3 whitespace-nowrap border rounded-md border-gray-300 transition ${
+                selectedCategory === cat.name
+                  ? 'bg-white shadow-inner font-semibold'
+                  : 'bg-gray-50 hover:bg-gray-100'
+              }`}
+            >
+              <Icon name={cat.icon} />
+              <span>{cat.name}</span>
+              {(cat.name === 'Ebooks' || cat.name === 'Video Courses') && (
+                <span className="ml-1 text-yellow-500 text-xs font-bold">👑</span>
+              )}
+            </button>
+          </Link>
         ))}
       </div>
     </div>
