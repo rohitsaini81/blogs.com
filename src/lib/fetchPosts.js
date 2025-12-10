@@ -104,19 +104,29 @@ export async function fetchBlogPostContent(blog_id) {
 
 
 
-
-
-
-
-
-
-
-
-
 export async function fetchApps(platform) {
   console.log("os")
-  console.log(platform)
   const clean_platform = decodeURIComponent(platform)
+  console.log(clean_platform)
+
+   try {
+    const { data, error } = await supabase
+      .from('app')
+      .select('*')
+      // .eq('title', decodedSlug)
+      .single() 
+
+    if (error) throw error
+
+    console.log(data);
+    
+    return data
+  } catch (err) {
+    console.error('Error fetching blog:', err)
+    throw err
+  }
+
+
     const data = [
     {
       hTitle: "Termux",
